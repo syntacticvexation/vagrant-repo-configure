@@ -21,10 +21,12 @@ module Vagrant
         @apt_lines.each do |line|
         	line_parts = line.split
 
-        	unless line_parts > 3
+        	unless line_parts.length > 3
         		errors << 'Invalid repo line - not enough tokens'
+        	end
 
         	first_word = ['deb', 'deb-src']
+
         	word = line_parts.shift
         	unless first_word.include? word
         		errors << "Invalid repo line - first token must be either #{first_word.join(' or ')} not #{word}"
