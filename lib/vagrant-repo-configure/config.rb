@@ -39,7 +39,7 @@ module Vagrant
         	end
 
         	line_parts.each do |part|
-        		unless part =~ /\A\w+\z/
+        		unless part =~ /\A[\w\-\d]+\z/
         			errors << "Invalid repo line - invalid distribution or section tokens (#{part})"
         		end
         	end
