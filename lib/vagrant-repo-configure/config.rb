@@ -9,6 +9,13 @@ module Vagrant
         @apt_lines = UNSET_VALUE
       end
 
+      def use_ubuntu_mirror(mirror,release)
+	@apt_lines = [] if @apt_lines == UNSET_VALUE
+	@apt_lines << "deb #{mirror} #{release} main restricted universe multiverse"
+	@apt_lines << "deb #{mirror} #{release}-security main restricted universe multiverse"
+	@apt_lines << "deb #{mirror} #{release}-updates main restricted universe multiverse"
+      end
+
       def add(line)
       	@apt_lines = [] if @apt_lines == UNSET_VALUE
 
