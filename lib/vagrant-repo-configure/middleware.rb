@@ -6,16 +6,18 @@ module Vagrant
 		  end
 
 		  def call(env)
-		  	vm      = env[:vm] || env[:machine]
+		  	unless vm.config.repos.apt_lines.empty?
+			  	vm      = env[:vm] || env[:machine]
 
-			vm.communicate.sudo('mv /etc/apt/sources.list /etc/apt/sources.list.old')
+				vm.communicate.sudo('mv /etc/apt/sources.list /etc/apt/sources.list.old')
 
-		  	vm.config.repos.apt_lines.each do |line|
-		  		vm.communicate.sudo("echo #{line} >> /etc/apt/sources.list")
-		  		env[:ui].info "Added #{line} to sources list"
-		  	end
+			  	vm.config.repos.apt_lines.each do |line|
+			  		vm.communicate.sudo("echo #{line} >> /etc/apt/sources.list")
+			  		env[:ui].info "Added #{line} to sources list"
+			  	end
 
-		    @app.call(env)
+			    @app.call(env)
+			 end
 		  end
 		end
 	end
