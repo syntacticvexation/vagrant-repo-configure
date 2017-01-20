@@ -1,8 +1,7 @@
-require 'bundler'
-
 begin
   require 'vagrant'
 rescue LoadError
+  require 'bundler'
   Bundler.require(:default, :development)
 end
 
