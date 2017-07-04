@@ -10,10 +10,17 @@ module Vagrant
       end
 
       def use_ubuntu_mirror(mirror,release)
-	@apt_lines = [] if @apt_lines == UNSET_VALUE
-	@apt_lines << "deb #{mirror} #{release} main restricted universe multiverse"
-	@apt_lines << "deb #{mirror} #{release}-security main restricted universe multiverse"
-	@apt_lines << "deb #{mirror} #{release}-updates main restricted universe multiverse"
+        source_repos = %w(main restricted universe multiverse)
+
+        add_source(mirror, release, source_repos)
+        add_source(mirror, release, "#{source_repos}-security")
+        add_source(mirror, release, "#{source_repos}-updates")
+      end
+
+      def add_source(location, release, repos)
+          @apt_lines = [] if @apt_lines == UNSET_VALUE
+
+          @apt_lines << "deb #{location} #{release} #{repos.join(' ')}"
       end
 
       def add(line)
