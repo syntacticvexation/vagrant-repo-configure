@@ -13,8 +13,8 @@ module Vagrant
         source_repos = %w(main restricted universe multiverse)
 
         add_source(mirror, release, source_repos)
-        add_source(mirror, release, "#{source_repos}-security")
-        add_source(mirror, release, "#{source_repos}-updates")
+        add_source(mirror, "#{release}-security", source_repos)
+        add_source(mirror, "#{release}-updates", source_repos)
       end
 
       def add_source(location, release, repos)
